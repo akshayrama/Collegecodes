@@ -13,23 +13,20 @@ int n=10;
 struct node* hashtable[10];
 void insert(int key) {
 	int toinsert = hashfunction(key,n);
-	int flag=0;
 	for(int i=0; i<n ; i++) {
 		if(i == toinsert ) {
 			struct node* newnode;
 			newnode = (struct node*)malloc(sizeof(struct node));
 			newnode->key = key;
-			newnode->next = hashtable[i];
-			hashtable[i] = newnode;
-			flag=1;
+			if(hashtable[i]==NULL) {
+				newnode->next = NULL;
+				hashtable[i] = newnode;
+			}
+			else {
+				newnode->next = hashtable[i];
+				hashtable[i] = newnode;
+			}
 		}
-	}
-	if(flag!=1) {
-		struct node* newnode;
-		newnode = (struct node*)malloc(sizeof(struct node));
-		newnode -> key = key;
-		newnode->next = NULL;
-		hashtable[toinsert] = newnode;
 	}
 	
 }
